@@ -1,0 +1,64 @@
+<div style="font-family: Arial, sans-serif; width: 100%; max-width: 300px; margin: auto; padding: 10px; background-color: transparent;">
+  <table style="width: 100%; border-collapse: collapse; text-align: center; font-size: 70%; background-color: transparent;">
+    <!-- Table Header -->
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 5px; background-color: transparent;">촬영본</th>
+      <th style="border: 1px solid #ddd; padding: 5px; background-color: transparent;">업로드</th>
+      <th style="border: 1px solid #ddd; padding: 5px; background-color: transparent;">외주</th>
+    </tr>
+    <!-- Table Body with Buttons -->
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 5px; background-color: transparent;">
+        <div style="display: flex; justify-content: center; align-items: center; font-size: 70%;">
+          <button onclick="decreaseCount('filming')" style="border: none; background-color: transparent; font-size: 15px;">-</button>
+          <h3 id="filming-count" style="margin: 0 5px;">0</h3>
+          <button onclick="increaseCount('filming')" style="border: none; background-color: transparent; font-size: 15px;">+</button>
+        </div>
+      </td>
+      <td style="border: 1px solid #ddd; padding: 5px; background-color: transparent;">
+        <div style="display: flex; justify-content: center; align-items: center; font-size: 70%;">
+          <button onclick="decreaseCount('uploaded')" style="border: none; background-color: transparent; font-size: 15px;">-</button>
+          <h3 id="uploaded-count" style="margin: 0 5px;">0</h3>
+          <button onclick="increaseCount('uploaded')" style="border: none; background-color: transparent; font-size: 15px;">+</button>
+        </div>
+      </td>
+      <td style="border: 1px solid #ddd; padding: 5px; background-color: transparent;">
+        <div style="display: flex; justify-content: center; align-items: center; font-size: 70%;">
+          <button onclick="decreaseCount('outsourced')" style="border: none; background-color: transparent; font-size: 15px;">-</button>
+          <h3 id="outsourced-count" style="margin: 0 5px;">0</h3>
+          <button onclick="increaseCount('outsourced')" style="border: none; background-color: transparent; font-size: 15px;">+</button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<script>
+  // 카운트 값을 localStorage에서 불러오기
+  let counts = {
+    filming: localStorage.getItem('filming') ? parseInt(localStorage.getItem('filming')) : 0,
+    uploaded: localStorage.getItem('uploaded') ? parseInt(localStorage.getItem('uploaded')) : 0,
+    outsourced: localStorage.getItem('outsourced') ? parseInt(localStorage.getItem('outsourced')) : 0
+  };
+
+  // 초기 값을 화면에 표시
+  document.getElementById('filming-count').textContent = counts.filming;
+  document.getElementById('uploaded-count').textContent = counts.uploaded;
+  document.getElementById('outsourced-count').textContent = counts.outsourced;
+
+  // 카운트 증가 함수
+  function increaseCount(type) {
+    counts[type]++;
+    document.getElementById(type + '-count').textContent = counts[type];
+    localStorage.setItem(type, counts[type]); // 값을 localStorage에 저장
+  }
+
+  // 카운트 감소 함수
+  function decreaseCount(type) {
+    if (counts[type] > 0) {
+      counts[type]--;
+      document.getElementById(type + '-count').textContent = counts[type];
+      localStorage.setItem(type, counts[type]); // 값을 localStorage에 저장
+    }
+  }
+</script>
